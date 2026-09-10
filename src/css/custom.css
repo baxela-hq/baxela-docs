@@ -1,0 +1,29 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* Baxela brand: indigo */
+:root {
+  --ifm-color-primary: #4f46e5;
+  --ifm-color-primary-dark: #4338ca;
+  --ifm-color-primary-darker: #3f34c0;
+  --ifm-color-primary-darkest: #352b9e;
+  --ifm-color-primary-light: #6259ea;
+  --ifm-color-primary-lighter: #6e66ec;
+  --ifm-color-primary-lightest: #8a84f1;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #818cf8;
+  --ifm-color-primary-dark: #6875e6;
+  --ifm-color-primary-darker: #5b68e2;
+  --ifm-color-primary-darkest: #4550c4;
+  --ifm-color-primary-light: #9aa4f9;
+  --ifm-color-primary-lighter: #a6aefa;
+  --ifm-color-primary-lightest: #c2c8fc;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}

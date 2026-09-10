@@ -1,0 +1,9 @@
+{
+  "label": "Modules",
+  "position": 4,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "description": "Per-module reference — tables, emitted events, and dependencies."
+  }
+}
