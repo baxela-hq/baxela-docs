@@ -1,6 +1,6 @@
 # Baxela Documentation
 
-The documentation site for [Baxela](https://github.com/baxela/baxela) — a
+The documentation site for [Baxela](https://github.com/baxela-hq/baxela) — a
 developer-first, modular, headless e-commerce platform (Laravel API + React
 admin + Next.js storefront).
 

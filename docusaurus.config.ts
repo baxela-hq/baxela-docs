@@ -4,8 +4,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
-// TODO: update once the remote repository exists.
-const githubRepo = 'https://github.com/baxela/baxela-docs';
+const githubRepo = 'https://github.com/baxela-hq/baxela-docs';
 
 const config: Config = {
   title: 'Baxela',
@@ -21,7 +20,7 @@ const config: Config = {
   url: 'https://docs.baxela.com',
   baseUrl: '/',
 
-  organizationName: 'baxela',
+  organizationName: 'baxela-hq',
   projectName: 'baxela-docs',
 
   onBrokenLinks: 'throw',
@@ -54,6 +53,7 @@ const config: Config = {
       'classic',
       {
         docs: {
+          routeBasePath: '/',
           sidebarPath: './sidebars.ts',
           editUrl: `${githubRepo}/edit/main/`,
           // Last-updated timestamps require at least one git commit;
@@ -109,7 +109,7 @@ const config: Config = {
           position: 'left',
         },
         {
-          href: 'https://github.com/baxela/baxela',
+          href: 'https://github.com/baxela-hq/baxela-docs',
           label: 'GitHub',
           position: 'right',
         },
@@ -121,9 +121,9 @@ const config: Config = {
         {
           title: 'Docs',
           items: [
-            { label: 'Introduction', to: '/docs/introduction' },
-            { label: 'Installation', to: '/docs/guide/installation' },
-            { label: 'API', to: '/docs/api/introduction' },
+            { label: 'Introduction', to: '/introduction' },
+            { label: 'Installation', to: '/guide/installation' },
+            { label: 'API', to: '/api/introduction' },
           ],
         },
         {
@@ -131,10 +131,10 @@ const config: Config = {
           items: [
             {
               label: 'Monorepo',
-              href: 'https://github.com/baxela/baxela',
+              href: 'https://github.com/baxela-hq/baxela',
             },
-            { label: 'Admin panel', to: '/docs/admin/getting-started' },
-            { label: 'Storefront', to: '/docs/storefront/getting-started' },
+            { label: 'Admin panel', to: '/admin/getting-started' },
+            { label: 'Storefront', to: '/storefront/getting-started' },
           ],
         },
         {
@@ -142,7 +142,7 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/baxela/baxela',
+              href: 'https://github.com/baxela-hq/baxela',
             },
           ],
         },
