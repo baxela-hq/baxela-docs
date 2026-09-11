@@ -26,4 +26,4 @@ stateDiagram-v2
 The Shipping module mirrors its own shipment lifecycle onto this machine:
 when a shipment reaches `shipped` the order is marked `SHIPPED`, and when it
 reaches `delivered` the order is marked `COMPLETED`
-(see [Shipping](/docs/backend/shipping)).
+(see [Shipping](/backend/shipping)).

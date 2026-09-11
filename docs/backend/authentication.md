@@ -24,5 +24,5 @@ for an API token once verified.
 
 The storefront implements these flows end-to-end (login, signup, OTP,
 forgot-password pages) against `/api/v1` — the
-[Bruno collections](/docs/api/introduction) in the monorepo contain the
+[Bruno collections](/api/introduction) in the monorepo contain the
 ready-to-run requests for each.

@@ -5,7 +5,7 @@ sidebar_position: 12
 # Payment
 
 Responsible for payments. The end-to-end payment sequence is documented in
-[Payment flow](/docs/architecture/flows/payment-flow).
+[Payment flow](/architecture/flows/payment-flow).
 
 ## Tables
 

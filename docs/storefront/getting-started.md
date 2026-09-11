@@ -73,4 +73,4 @@ the monorepo) builds the standalone server and runs `server.js` behind the
 port published by `docker-compose.prod.yml`.
 `NEXT_PUBLIC_API_BASE_URL` is baked in at build time;
 `SERVER_API_BASE_URL` is provided at runtime. See
-[Production stack](/docs/deployment/production-stack).
+[Production stack](/deployment/production-stack).

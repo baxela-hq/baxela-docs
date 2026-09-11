@@ -51,4 +51,4 @@ The nginx service healthcheck curls `/up`, which passes through php-fpm
 into Laravel — a healthy `web` service means the whole request path works.
 
 All host ports are overridable through the root `.env` (see
-[Configuration](/docs/guide/configuration)).
+[Configuration](/guide/configuration)).

@@ -62,7 +62,7 @@ pnpm dev
 ```
 
 Prefer Docker? The
-[develop compose stack](/docs/deployment/develop-stack) runs this dev
+[develop compose stack](/deployment/develop-stack) runs this dev
 server in a container together with the rest of the platform
 (`docker compose up -d` from the repo root) — no host Node needed.
 
@@ -118,4 +118,4 @@ rules, i18n guidelines and known gotchas — are documented in the app's
 Any static host works — the app is a pure SPA with an `/* → /index.html`
 fallback. Build with `pnpm build` and serve `dist/`, providing the env
 vars at build time. The production compose stack builds and serves it
-automatically (see [Production stack](/docs/deployment/production-stack)).
+automatically (see [Production stack](/deployment/production-stack)).

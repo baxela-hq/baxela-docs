@@ -15,8 +15,8 @@ docker compose up -d
 
 The first start bootstraps the backend automatically (composer install,
 key generation, migrations). See
-[Installation](/docs/guide/installation) for the full walkthrough and
-[Develop stack](/docs/deployment/develop-stack) for the services and
+[Installation](/guide/installation) for the full walkthrough and
+[Develop stack](/deployment/develop-stack) for the services and
 profiles.
 
 ## Backend work
@@ -35,8 +35,8 @@ docker compose exec app composer install
 
 The admin and storefront dev servers run in the `frontend` compose
 profile (on by default). To run them on the host instead, see
-[Admin — Getting started](/docs/admin/getting-started) and
-[Storefront — Getting started](/docs/storefront/getting-started).
+[Admin — Getting started](/admin/getting-started) and
+[Storefront — Getting started](/storefront/getting-started).
 
 ## Conventions
 
@@ -46,7 +46,7 @@ before touching an app — they cover module structure, Action/Controller
 patterns, feature anatomy, i18n rules, and known gotchas.
 
 Commits follow the
-[commit convention](/docs/contributing/commit-convention):
+[commit convention](/contributing/commit-convention):
 `<type>(<scope>): <subject>` with a mandatory scope.
 
 ## This documentation site
