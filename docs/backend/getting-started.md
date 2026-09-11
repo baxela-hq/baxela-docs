@@ -22,7 +22,7 @@ platform; the admin panel and storefront are its clients.
 ## Running it
 
 The backend runs as part of the monorepo develop stack (see
-[Installation](/docs/guide/installation)):
+[Installation](/guide/installation)):
 
 ```bash
 cp .env.example .env
@@ -48,10 +48,10 @@ docker compose exec app php artisan test
 The platform is built to be extended via:
 
 1. **Events & listeners** — react to existing domain events (see
-   [Events](/docs/architecture/events)).
+   [Events](/architecture/events)).
 2. **Module overrides** — override behavior where the module system allows.
 3. **Custom modules** — create new modules with their own tables, routes
    and events.
 
-Read [Architecture](/docs/architecture/modular-monolith) for how modules
+Read [Architecture](/architecture/modular-monolith) for how modules
 communicate through Core contracts and gateways.

@@ -30,6 +30,6 @@ flowchart TD
 ```
 
 The order then waits for payment — see the
-[order state machine](/docs/architecture/flows/order-state-machine) for the
-possible transitions and the [payment flow](/docs/architecture/flows/payment-flow)
+[order state machine](/architecture/flows/order-state-machine) for the
+possible transitions and the [payment flow](/architecture/flows/payment-flow)
 for how the order becomes paid.

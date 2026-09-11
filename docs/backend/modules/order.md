@@ -6,7 +6,7 @@ sidebar_position: 11
 
 Responsible for orders: the aggregate, its line items, and addresses. The
 order state machine and placement flow are documented in
-[Flows](/docs/architecture/flows/order-flow).
+[Flows](/architecture/flows/order-flow).
 
 ## Tables
 

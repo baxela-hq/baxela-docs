@@ -35,11 +35,11 @@ and a Next.js storefront — all developed together in a single monorepo.
 
 ## Where to go next
 
-- **[Installation](/docs/guide/installation)** — get the whole platform
+- **[Installation](/guide/installation)** — get the whole platform
   running with one `docker compose up -d`.
-- **[Architecture](/docs/architecture/modular-monolith)** — how the modular
+- **[Architecture](/architecture/modular-monolith)** — how the modular
   monolith and its modules fit together.
-- **[API](/docs/api/introduction)** — authentication, conventions, and the
+- **[API](/api/introduction)** — authentication, conventions, and the
   OpenAPI/Bruno tooling.
-- **[Deployment](/docs/deployment/develop-stack)** — develop and production
+- **[Deployment](/deployment/develop-stack)** — develop and production
   stacks.

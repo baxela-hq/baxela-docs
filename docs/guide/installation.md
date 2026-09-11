@@ -53,8 +53,8 @@ docker compose exec app php artisan migrate
 ## Running the frontends on the host
 
 Each frontend app can also run on the host with its own dev server — see
-[Admin — Getting started](/docs/admin/getting-started) and
-[Storefront — Getting started](/docs/storefront/getting-started).
+[Admin — Getting started](/admin/getting-started) and
+[Storefront — Getting started](/storefront/getting-started).
 
 ## Verifying the install
 
@@ -67,6 +67,6 @@ response means the entire request path is healthy.
 
 ## What's next
 
-Read [Configuration](/docs/guide/configuration) for the available
-environment variables, or [Deployment](/docs/deployment/develop-stack) for
+Read [Configuration](/guide/configuration) for the available
+environment variables, or [Deployment](/deployment/develop-stack) for
 a tour of the develop stack and its profiles.

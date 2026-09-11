@@ -25,7 +25,7 @@ http://localhost:8085/api/v1
 
 The API uses **Laravel Sanctum** tokens, and customer flows support
 passwordless OTP sign-in (see
-[Authentication](/docs/backend/authentication)). Send the token as a
+[Authentication](/backend/authentication)). Send the token as a
 bearer header:
 
 ```http
