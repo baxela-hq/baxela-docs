@@ -14,8 +14,8 @@ Modules live in `apps/backend/Modules/`, one folder per module.
 
 ## Modules at a glance
 
-| Module                                             | Responsibility                                           |
-| -------------------------------------------------- | -------------------------------------------------------- |
+| Module                                        | Responsibility                                           |
+| --------------------------------------------- | -------------------------------------------------------- |
 | [Auth](/backend/modules/auth)                 | Authentication and authorization                         |
 | [Cart](/backend/modules/cart)                 | Shopping carts and cart items                            |
 | [Catalog](/backend/modules/catalog)           | Products, variants, options, images, categories          |

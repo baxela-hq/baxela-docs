@@ -43,6 +43,11 @@ docker compose exec app bash
 docker compose exec app php artisan test
 ```
 
+The backend follows a slim hybrid testing policy: every module keeps a
+happy-path test plus two or three failure guards — HTTP feature tests for
+user-facing flows, direct Action/Gateway calls for domain logic, with
+loose payload assertions so tests survive additive API changes.
+
 ## Extending the platform
 
 The platform is built to be extended via:

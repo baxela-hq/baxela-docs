@@ -28,11 +28,10 @@ and which profiles start.
 
 ## Admin panel (`apps/admin/.env`)
 
-| Variable                     | Description                                                         |
-| ---------------------------- | ------------------------------------------------------------------- |
-| `VITE_API_BASE_URL`          | Base URL of the Baxela API, e.g. `http://localhost:8085/api/v1`     |
-| `VITE_STORE_FRONT_URL`       | Storefront base URL, used for product/page preview links            |
-| `VITE_CLERK_PUBLISHABLE_KEY` | Optional — only for the `/clerk/*` demo tree; leave empty otherwise |
+| Variable               | Description                                                     |
+| ---------------------- | --------------------------------------------------------------- |
+| `VITE_API_BASE_URL`    | Base URL of the Baxela API, e.g. `http://localhost:8085/api/v1` |
+| `VITE_STORE_FRONT_URL` | Storefront base URL, used for product/page preview links        |
 
 ## Storefront (`apps/storefront/.env.local`)
 
@@ -47,3 +46,19 @@ The Laravel application keeps its own `.env` (database, Redis, mail,
 Sanctum stateful domains, and so on) exactly like any Laravel app. The
 develop stack bind-mounts `apps/backend` into the container, so editing it
 on the host applies to the running stack.
+
+Notable backend-specific variables:
+
+| Variable                      | Description                                                                       |
+| ----------------------------- | --------------------------------------------------------------------------------- |
+| `STRIPE_SECRET`               | Stripe API secret key; the `stripe` payment method is only offered when it is set |
+| `STRIPE_WEBHOOK_SECRET`       | Signing secret for `POST /api/v1/payment/webhook/stripe`                          |
+| `STRIPE_SUCCESS_URL`          | Storefront return page after hosted checkout (`{order_code}` templated)           |
+| `STRIPE_CANCEL_URL`           | Storefront return page for cancelled checkouts                                    |
+| `ADMIN_NOTIFICATION_EMAILS`   | Comma-separated admin recipients for email notifications (default: mail sender)   |
+| `ADMIN_NOTIFICATION_USER_IDS` | Restrict database admin notifications to fixed user ids (default: all staff)      |
+
+See [Payment flow](/architecture/flows/payment-flow) for how the Stripe
+variables are used. The shared-hosting deploy tool keeps its connection
+settings in `.env.sharedhosting` at the repo root (see
+[Shared hosting](/deployment/shared-hosting)).

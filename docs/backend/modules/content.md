@@ -21,6 +21,4 @@ Responsible for providing content, such as CMS pages.
 
 ## Dependencies
 
-| Module       | Reason                                                                                                       |
-| ------------ | ------------------------------------------------------------------------------------------------------------ |
-| Notification | Notifies admins by email when a contact message is submitted (the listener lives in the Notification module) |
+None.

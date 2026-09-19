@@ -12,7 +12,10 @@ built on top of
 Multilingual and RTL-ready by design: the UI ships Farsi (`fa`) and
 English (`en`) today, and content entities carry per-language translations
 driven by the backend language list — more locales can be added without
-structural changes.
+structural changes. The UI language and its RTL/LTR direction follow the
+**store's default language** (fetched at sign-in and after settings
+changes); the config-drawer toggle acts as a cookie-persisted manual
+override.
 
 ## Features
 
@@ -20,11 +23,17 @@ structural changes.
   product options and option values.
 - **Content** — CMS pages with rich-text editing (Tiptap).
 - **Media library** — folders, uploads and a reusable media picker.
-- **Orders** — order management with status updates.
+- **Orders** — order management with status updates; amounts shown in
+  each order's snapshotted currency.
+- **Payments** — read-only payments list (filters by status, method,
+  order, transaction) with confirm/fail settle actions for pending
+  payments — the pathway for `manual` payments.
+- **Notifications** — header bell with unread badge and an inbox for
+  order/payment events (mark read / mark all read).
 - **Users & Settings** — admin users, system settings.
 - Server-driven data tables (pagination, sorting, `filter[field]` filters —
   all synced to the URL).
-- Light/dark mode, layout variants, font options, LTR/RTL toggle.
+- Light/dark mode, layout variants, font options, LTR/RTL direction.
 - Responsive, accessible, global search (Ctrl/Cmd+K).
 
 ## Tech stack
@@ -68,11 +77,10 @@ server in a container together with the rest of the platform
 
 ### Environment variables
 
-| Variable                     | Description                                                              |
-| ---------------------------- | ------------------------------------------------------------------------ |
-| `VITE_API_BASE_URL`          | Base URL of the Baxela Laravel API (e.g. `http://localhost:8085/api/v1`) |
-| `VITE_STORE_FRONT_URL`       | Storefront base URL, used for product/page preview links                 |
-| `VITE_CLERK_PUBLISHABLE_KEY` | Optional — only for the `/clerk/*` demo tree; leave empty otherwise      |
+| Variable               | Description                                                              |
+| ---------------------- | ------------------------------------------------------------------------ |
+| `VITE_API_BASE_URL`    | Base URL of the Baxela Laravel API (e.g. `http://localhost:8085/api/v1`) |
+| `VITE_STORE_FRONT_URL` | Storefront base URL, used for product/page preview links                 |
 
 ## Commands
 

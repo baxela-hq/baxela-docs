@@ -6,10 +6,18 @@ sidebar_position: 1
 
 The storefront is the customer-facing app of the platform — a Next.js App
 Router application that consumes the Baxela Laravel API for catalog
-browsing, product pages, cart, checkout and customer accounts.
+browsing, product pages (with a specifications tab from the catalog
+attribute system), cart, checkout, payments, and customer accounts.
 
 Multilingual by default: English and Farsi (RTL) via `next-intl`, with
 locale routing under `app/[locale]/`.
+
+Checkout offers the payment methods returned by
+`GET /payment/user/methods` — hosted drivers like Stripe redirect to the
+gateway and land back on the `/payment/return` page, which polls the
+order's payment status. Signed-in customers also get notifications: a
+header bell with unread badge and an inbox under
+`/profile/notifications`.
 
 ## Tech stack
 

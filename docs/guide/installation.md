@@ -16,7 +16,7 @@ sidebar_position: 1
 From the monorepo root:
 
 ```bash
-git clone https://github.com/baxela/baxela.git
+git clone https://github.com/baxela-hq/baxela.git
 cd baxela
 cp .env.example .env
 docker compose up -d

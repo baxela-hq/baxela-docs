@@ -34,11 +34,3 @@ pnpm clear           # clear the Docusaurus cache
 The site deploys to **Vercel** on every push to `main`; every pull request
 gets a preview URL. CI (`.github/workflows/ci.yml`) additionally runs lint,
 format checks, and a build on every PR and push.
-
-## Before going live — TODO
-
-- Update `githubRepo` and `organizationName`/`projectName` in
-  `docusaurus.config.ts` once the remote repository exists.
-- Set `url` in `docusaurus.config.ts` if the site is not served at
-  `docs.baxela.com`.
-- Replace `static/img/favicon.ico` with Baxela branding.

@@ -7,7 +7,7 @@ sidebar_position: 2
 ## Clone and boot
 
 ```bash
-git clone https://github.com/baxela/baxela.git
+git clone https://github.com/baxela-hq/baxela.git
 cd baxela
 cp .env.example .env
 docker compose up -d
