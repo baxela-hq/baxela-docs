@@ -6,8 +6,9 @@ sidebar_position: 1
 
 The develop stack is `docker-compose.yml` at the monorepo root — the
 default compose file. It runs php-fpm + nginx + MySQL + Redis with the
-backend source bind-mounted from `apps/backend` (no host PHP required),
-plus the admin and storefront dev servers behind the `frontend` profile.
+backend source bind-mounted from `apps/backend` (no host PHP required), a
+queue worker for queued jobs (notifications today), and the admin and
+storefront dev servers behind the `frontend` profile.
 
 ```bash
 cp .env.example .env
@@ -22,12 +23,17 @@ runs automatically on boot.
 | Service      | Image                       | Port   | Notes                                    |
 | ------------ | --------------------------- | ------ | ---------------------------------------- |
 | `app`        | `baxela/backend:develop`    | —      | php-fpm; backend source bind-mounted     |
+| `queue`      | `baxela/backend:develop`    | —      | `queue:work` on the database queue       |
 | `web`        | `nginx:stable-bookworm`     | `8085` | Serves the API; health-checked via `/up` |
 | `admin`      | `baxela/admin:develop`      | `5173` | Vite dev server (`frontend` profile)     |
 | `storefront` | `baxela/storefront:develop` | `3000` | Next.js dev server (`frontend` profile)  |
 | `mysql`      | `mysql:8-debian`            | `3308` | Database with healthcheck                |
 | `redis`      | `redis:7-bookworm`          | `6378` | Cache/queues with healthcheck            |
 | `mail`       | `axllent/mailpit`           | `8025` | Catch-all mail UI (`mail` profile)       |
+
+The `queue` service mirrors the production stack's worker so queued
+notifications (and anything else on the database queue) process locally
+too.
 
 ## Profiles
 

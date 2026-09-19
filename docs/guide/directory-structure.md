@@ -17,7 +17,8 @@ baxela/
 │   └── bruno/            # Bruno API collections
 ├── docs/                 # Cross-project documentation
 ├── infrastructure/
-│   └── docker/           # Docker build assets per environment (Dockerfiles, nginx, php.ini)
+│   ├── docker/           # Docker build assets per environment (Dockerfiles, nginx, php.ini)
+│   └── sharedhosting/    # Shared-hosting deploy tool (deploy.sh, post-deploy runner)
 ├── .github/              # CI / PR templates
 ├── docker-compose.yml    # Develop stack (default): docker compose up -d
 ├── docker-compose.prod.yml # Production stack (single-server deploy)
@@ -31,5 +32,9 @@ baxela/
   development (the default), `docker-compose.prod.yml` for production.
   Their build assets (Dockerfiles, nginx configs, php.ini) live in
   `infrastructure/docker/<environment>/`.
+- The shared-hosting deploy tool and its `env.app.example` live in
+  `infrastructure/sharedhosting/` (see
+  [Shared hosting](/deployment/shared-hosting)); its connection settings
+  come from `.env.sharedhosting` at the repo root.
 - Cross-project documentation lives in `docs/`; per-app developer
   conventions live in each app's `AGENTS.md`.
