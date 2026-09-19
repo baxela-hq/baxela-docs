@@ -4,26 +4,51 @@ sidebar_position: 2
 
 # Order state machine
 
-Every order moves through a guarded state machine. Payment failure,
-cancellation, and completion are all explicit transitions — no order jumps
-states implicitly.
+Every order carries two independent status axes, each a guarded state
+machine — no order jumps states implicitly.
+
+## Fulfilment status
 
 ```mermaid
 stateDiagram-v2
-    [*] --> draft
+    [*] --> pending
 
-    draft --> ready_for_payment
-    ready_for_payment --> paid
-    ready_for_payment --> payment_failed
+    pending --> processing
+    pending --> shipped
+    pending --> cancelled
 
-    paid --> processing
-    processing --> completed
+    processing --> shipped
+    processing --> cancelled
 
-    draft --> cancelled
-    ready_for_payment --> cancelled
+    shipped --> completed
+
+    completed --> [*]
+    cancelled --> [*]
 ```
 
-The Shipping module mirrors its own shipment lifecycle onto this machine:
-when a shipment reaches `shipped` the order is marked `SHIPPED`, and when it
-reaches `delivered` the order is marked `COMPLETED`
-(see [Shipping](/backend/shipping)).
+New orders start at `pending`. Cancellation happens either by the
+customer or by the scheduled expiry command (unpaid orders past their
+`expires_at`).
+
+## Payment status
+
+```mermaid
+stateDiagram-v2
+    [*] --> unpaid
+
+    unpaid --> paid
+    paid --> refunded
+
+    refunded --> [*]
+```
+
+A settled payment flips the order to `paid` (see
+[payment flow](/architecture/flows/payment-flow)); refunds are applied by
+admins.
+
+## Shipping mirrors onto the order
+
+The Shipping module keeps one shipment per order and mirrors its
+lifecycle: when a shipment reaches `shipped` the order gateway marks the
+order `shipped`, and when it reaches `delivered` the order is marked
+`completed` (see [Shipping](/backend/shipping)).

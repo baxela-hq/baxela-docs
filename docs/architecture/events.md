@@ -17,7 +17,9 @@ event store).
 | ------------------------ | -------------------------- |
 | `UserSignedUpEvent`      | A user signs up            |
 | `UserSignedInEvent`      | A user signs in            |
+| `OtpRequestedEvent`      | A customer requests an OTP |
 | `UserEmailVerifiedEvent` | A user's email is verified |
+| `UserActivatedEvent`     | A user is activated        |
 | `UserDeactivatedEvent`   | A user is deactivated      |
 
 ### Cart
@@ -31,13 +33,14 @@ event store).
 
 ### Catalog
 
-| Event                     | When                     |
-| ------------------------- | ------------------------ |
-| `ProductCreatedEvent`     | A product is created     |
-| `ProductUpdatedEvent`     | A product is updated     |
-| `ProductDeletedEvent`     | A product is deleted     |
-| `ProductActivatedEvent`   | A product is activated   |
-| `ProductDeactivatedEvent` | A product is deactivated |
+| Event                        | When                        |
+| ---------------------------- | --------------------------- |
+| `ProductCreatedEvent`        | A product is created        |
+| `ProductUpdatedEvent`        | A product is updated        |
+| `ProductDeletedEvent`        | A product is deleted        |
+| `ProductActivatedEvent`      | A product is activated      |
+| `ProductDeactivatedEvent`    | A product is deactivated    |
+| `ProductCommentCreatedEvent` | A product comment is posted |
 
 ### Contact
 
@@ -78,14 +81,15 @@ event store).
 
 ### Order
 
-| Event                 | When                       |
-| --------------------- | -------------------------- |
-| `OrderPendingEvent`   | Order enters pending state |
-| `OrderCreatedEvent`   | Order is created           |
-| `OrderPaidEvent`      | Order is paid              |
-| `OrderShippedEvent`   | Order is shipped           |
-| `OrderCompletedEvent` | Order is completed         |
-| `OrderCancelledEvent` | Order is cancelled         |
+| Event                 | When                                                                        |
+| --------------------- | --------------------------------------------------------------------------- |
+| `OrderCreatedEvent`   | Checkout creates the order (in `pending`/`unpaid`)                          |
+| `OrderPaidEvent`      | A settled payment marks the order `paid`                                    |
+| `OrderShippedEvent`   | The order is marked `shipped`                                               |
+| `OrderCompletedEvent` | The order is marked `completed`                                             |
+| `OrderCancelledEvent` | The order is cancelled — by the customer or by the scheduled expiry command |
+| `OrderRefundedEvent`  | The order's payment status moves to `refunded`                              |
+| `OrderPendingEvent`   | Reserved contract — not dispatched yet                                      |
 
 ### Payment
 
@@ -103,11 +107,11 @@ event store).
 
 ### Shipping
 
-| Event                    | When                                                                   |
-| ------------------------ | ---------------------------------------------------------------------- |
-| `ShipmentCreatedEvent`   | A shipment is created for an order                                     |
-| `ShipmentShippedEvent`   | Shipment transitions to shipped (also mirrors `OrderShippedEvent`)     |
-| `ShipmentDeliveredEvent` | Shipment transitions to delivered (also mirrors `OrderCompletedEvent`) |
+| Event                    | When                                                                  |
+| ------------------------ | --------------------------------------------------------------------- |
+| `ShipmentCreatedEvent`   | A shipment is created for an order                                    |
+| `ShipmentShippedEvent`   | Shipment transitions to shipped (the order is marked shipped too)     |
+| `ShipmentDeliveredEvent` | Shipment transitions to delivered (the order is marked completed too) |
 
 ### User
 
@@ -120,4 +124,6 @@ event store).
 Register listeners in your module's event service provider as you would in
 any Laravel application. The per-module reference pages list which events
 each module emits and listens to today — use them as the contract when
-adding your own reactions.
+adding your own reactions. The **Notification** module is the canonical
+example: it subscribes to order, payment, and contact events and delivers
+them over database/email channels.

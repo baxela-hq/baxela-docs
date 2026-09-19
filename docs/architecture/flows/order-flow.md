@@ -4,32 +4,42 @@ sidebar_position: 1
 
 # Order flow
 
-Order placement crosses several modules: the Order module coordinates, and
-Inventory (stock reservation) reacts to the events it dispatches.
+Order placement is driven by the Cart module's checkout: it validates the
+cart, then creates the order and decrements stock inside a single
+database transaction.
 
 ```mermaid
 flowchart TD
-    A[API: POST /orders] --> B[Order Module]
+    A[Storefront: POST /cart/user/checkout] --> B[Cart Module: CheckoutAction]
 
-    B --> C[Validate Cart & Customer]
-    C -->|Invalid| C1[Return Validation Error]
+    B --> C[Validate address & country]
+    C -->|Invalid| C1[Return validation error]
 
-    C -->|Valid| D[Create Order Aggregate]
-    D --> E[Persist Order Draft]
+    C -->|Valid| D[Check per-item stock via Inventory gateway]
+    D -->|Out of stock| D1[Return out-of-stock error]
 
-    E --> F[Dispatch Domain Event: OrderCreated]
+    D -->|Available| E[Quote shipping & snapshot currency]
+    E --> F["One transaction:
+        create order (pending/unpaid, price+currency+shipping snapshots, order_code)
+        decrement stock per item
+        destroy the cart"]
 
-    F --> G[Inventory Module Listener]
-    G -->|Insufficient Stock| G1[Dispatch OrderRejected]
-    G -->|Stock Reserved| H[Dispatch StockReserved]
+    F --> G[Dispatch OrderCreatedEvent]
+    F --> H[Dispatch CartCheckedOutEvent]
 
-    H --> I[Pricing Module Listener]
-    I --> J[Calculate Totals & Taxes]
-
-    J --> K[Dispatch OrderReadyForPayment]
+    G --> I[Notification listeners: order confirmation to user + admins]
 ```
 
-The order then waits for payment — see the
-[order state machine](/architecture/flows/order-state-machine) for the
-possible transitions and the [payment flow](/architecture/flows/payment-flow)
-for how the order becomes paid.
+The fresh order is `pending` / `unpaid` with a public `order_code` and an
+`expires_at` deadline (30 minutes). From there:
+
+- **Payment** — the storefront starts a payment against the `order_code`;
+  settlement marks the order `paid` (see
+  [payment flow](/architecture/flows/payment-flow)).
+- **Expiry** — a scheduled command (`order:cancel-expired`) cancels
+  expired unpaid orders and dispatches `OrderCancelledEvent`, so the
+  customer and admins are notified.
+- **Fulfilment** — admins move the order through the
+  [state machine](/architecture/flows/order-state-machine); shipment
+  updates in the Shipping module mirror `shipped`/`delivered` onto the
+  order automatically.
