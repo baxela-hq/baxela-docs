@@ -45,9 +45,11 @@ Authorization: Bearer <token>
 ## Tooling
 
 - **Bruno collections** — ready-to-run requests for every flow live in
-  `api/bruno/` in the monorepo (including the newer notification and
-  payment endpoints, e.g. the Stripe webhook). Open them with
-  [Bruno](https://www.usebruno.com/) and point them at your local stack.
+  `api/bruno/` in the monorepo — auth and sessions, cart and coupons,
+  catalog and imports, content/blog, discounts and promotions, orders
+  and stats, payments and methods, support tickets, notifications and
+  web push. Open them with [Bruno](https://www.usebruno.com/) and point
+  them at your local stack.
 - **OpenAPI** — the backend generates its OpenAPI document automatically
   with [Scramble](https://scramble.dedoc.co/) (`dedoc/scramble`), so the
   specification is always derived from the actual code.

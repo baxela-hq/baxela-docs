@@ -5,8 +5,8 @@ sidebar_position: 1
 # Getting started
 
 The admin panel is a React SPA that consumes the Baxela Laravel API to
-manage catalog, content, media, orders, users and system settings. It is
-built on top of
+manage catalog, content, discounts, support, media, orders, users and
+system settings. It is built on top of
 [shadcn-admin](https://github.com/satnaing/shadcn-admin).
 
 Multilingual and RTL-ready by design: the UI ships Farsi (`fa`) and
@@ -19,21 +19,44 @@ override.
 
 ## Features
 
-- **Catalog** — products (with variants, options & images), categories,
-  product options and option values.
-- **Content** — CMS pages with rich-text editing (Tiptap).
-- **Media library** — folders, uploads and a reusable media picker.
+- **Dashboard** — live stats from the API: revenue with month-over-month
+  change, 12-month/30-day series, order-status breakdown, top products,
+  recent orders, and customer growth.
+- **Catalog** — products (with variants, options, images and a photo per
+  variant), categories with cover images, the featured-curation page for
+  home-page products/categories, product SEO (with Google SERP preview),
+  CSV product import (single- and multi-variant) and whole-catalog JSON
+  import/export — every import audited.
+- **Content** — CMS pages with rich-text editing (Tiptap), plus the
+  blog: posts (per-language content, SEO tab with SERP preview,
+  scheduled publishing, related products), post categories, and comment
+  moderation.
+- **Discounts** — coupon management (codes, windows, usage limits) and
+  automatic promotions (product/category scoped, priority, price
+  preview).
+- **Support** — customer support tickets: threaded messages with author
+  names resolved, status management, and notification deep links from
+  the bell straight to a ticket.
+- **Media library** — folders, uploads and a reusable media picker
+  (including the CSV/JSON files used by imports).
 - **Orders** — order management with status updates; amounts shown in
-  each order's snapshotted currency.
-- **Payments** — read-only payments list (filters by status, method,
-  order, transaction) with confirm/fail settle actions for pending
-  payments — the pathway for `manual` payments.
-- **Notifications** — header bell with unread badge and an inbox for
-  order/payment events (mark read / mark all read).
-- **Users & Settings** — admin users, system settings.
+  each order's snapshotted currency, coupon and per-item promotion
+  discounts on the detail page.
+- **Payments** — payment-method management (activate/deactivate and
+  reorder gateway methods) plus the payments list (filters by status,
+  method, order, transaction) with confirm/fail settle actions for
+  pending payments — the pathway for `manual` payments.
+- **Notifications** — realtime header bell (Laravel Reverb) with unread
+  badge and an inbox for order/payment/ticket events (mark read / mark
+  all read), optionally delivered as OS-level browser notifications
+  (web push).
+- **Users & Settings** — admin users, device-session management with
+  real sign-out, and system settings including the storefront theme
+  selector.
 - Server-driven data tables (pagination, sorting, `filter[field]` filters —
   all synced to the URL).
-- Light/dark mode, layout variants, font options, LTR/RTL direction.
+- Light/dark mode, layout variants, font options (per-language UI fonts,
+  Vazirmatn for Farsi), LTR/RTL direction.
 - Responsive, accessible, global search (Ctrl/Cmd+K).
 
 ## Tech stack

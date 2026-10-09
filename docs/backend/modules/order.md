@@ -1,5 +1,5 @@
 ---
-sidebar_position: 11
+sidebar_position: 12
 ---
 
 # Order
@@ -10,11 +10,29 @@ snapshots. The order state machine and placement flow are documented in
 
 ## Tables
 
-| Table                   | Description                                                                                               |
-| ----------------------- | --------------------------------------------------------------------------------------------------------- |
-| `order_orders`          | Orders — public `order_code`, status + payment status, `currency_id` and shipping snapshots, `expires_at` |
-| `order_order_items`     | Order line items with per-item price snapshots                                                            |
-| `order_order_addresses` | Billing/shipping address snapshots per order                                                              |
+| Table                   | Description                                                                                                                                                                |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `order_orders`          | Orders — public `order_code`, status + payment status, `currency_id` and shipping snapshots, coupon snapshot (`coupon_id`, `coupon_code`, `discount_amount`), `expires_at` |
+| `order_order_items`     | Order line items with per-item price snapshots plus promotion facts (`base_price`, `promotion_discount`, `promotion_id`)                                                   |
+| `order_order_addresses` | Billing/shipping address snapshots per order                                                                                                                               |
+
+Discount snapshots keep invoices self-contained: promoted items record
+their base price and the per-unit discount actually applied, and the
+order keeps the coupon code and amount consumed at checkout (see
+[Discount](/backend/modules/discount)).
+
+## Endpoints
+
+| Endpoint                        | Audience | Purpose                                                            |
+| ------------------------------- | -------- | ------------------------------------------------------------------ |
+| `GET /order/user/orders`        | User     | Order history — includes `created_at` and the line items per order |
+| `GET /order/user/orders/{code}` | User     | Order detail (payment-status polling after hosted checkout)        |
+| `GET /order/admin/stats`        | Admin    | Dashboard stats — see below                                        |
+
+`GET /order/admin/stats` powers the admin dashboard: total revenue (paid
+orders only) with month-over-month change, a zero-filled 12-month revenue
+series and 30-day order series, counts by status, top products by units
+sold, and the latest orders.
 
 ## Events emitted
 

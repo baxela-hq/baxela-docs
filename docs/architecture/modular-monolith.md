@@ -14,23 +14,25 @@ Modules live in `apps/backend/Modules/`, one folder per module.
 
 ## Modules at a glance
 
-| Module                                        | Responsibility                                           |
-| --------------------------------------------- | -------------------------------------------------------- |
-| [Auth](/backend/modules/auth)                 | Authentication and authorization                         |
-| [Cart](/backend/modules/cart)                 | Shopping carts and cart items                            |
-| [Catalog](/backend/modules/catalog)           | Products, variants, options, images, categories          |
-| [Contact](/backend/modules/contact)           | Storefront contact-form messages and admin inbox         |
-| [Content](/backend/modules/content)           | CMS pages                                                |
-| [Core](/backend/modules/core)                 | Shared contracts, gateways, DTOs, countries, idempotency |
-| [Inventory](/backend/modules/inventory)       | Product stock levels                                     |
-| [Media](/backend/modules/media)               | Media uploads                                            |
-| [Menu](/backend/modules/menu)                 | Navigation menus and nested links                        |
-| [Notification](/backend/modules/notification) | Email notifications (e.g. admins on contact submissions) |
-| [Order](/backend/modules/order)               | Orders, order items, order addresses                     |
-| [Payment](/backend/modules/payment)           | Payments                                                 |
-| [Setting](/backend/modules/setting)           | System settings                                          |
-| [Shipping](/backend/shipping)                 | Shipping methods, zones, rates, shipments                |
-| [User](/backend/modules/user)                 | Customers/users                                          |
+| Module                                        | Responsibility                                            |
+| --------------------------------------------- | --------------------------------------------------------- |
+| [Auth](/backend/modules/auth)                 | Authentication and authorization                          |
+| [Cart](/backend/modules/cart)                 | Shopping carts and cart items                             |
+| [Catalog](/backend/modules/catalog)           | Products, variants, options, images, categories           |
+| [Contact](/backend/modules/contact)           | Storefront contact-form messages and admin inbox          |
+| [Content](/backend/modules/content)           | CMS pages and the blog (posts, categories, comments)      |
+| [Core](/backend/modules/core)                 | Shared contracts, gateways, DTOs, countries, idempotency  |
+| [Discount](/backend/modules/discount)         | Coupons and automatic product promotions                  |
+| [Inventory](/backend/modules/inventory)       | Product stock levels                                      |
+| [Media](/backend/modules/media)               | Media uploads                                             |
+| [Menu](/backend/modules/menu)                 | Navigation menus and nested links                         |
+| [Notification](/backend/modules/notification) | Database/email/web-push notifications, realtime broadcast |
+| [Order](/backend/modules/order)               | Orders, order items, order addresses                      |
+| [Payment](/backend/modules/payment)           | Payments behind a pluggable gateway-driver registry       |
+| [Setting](/backend/modules/setting)           | System settings                                           |
+| [Shipping](/backend/shipping)                 | Shipping methods, zones, rates, shipments                 |
+| [Support](/backend/modules/support)           | Customer support tickets                                  |
+| [User](/backend/modules/user)                 | Customers/users                                           |
 
 See [Backend / Modules](/backend/modules/auth) for the per-module
 reference: tables, emitted/listened events, and dependencies.

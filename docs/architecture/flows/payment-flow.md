@@ -11,18 +11,28 @@ hosted gateways settle through signed webhooks.
 
 ## Drivers
 
-Payment methods are a driver registry, not a table: `PaymentMethodEnum`
-supplies the case, `config('payment.drivers')` maps it to a
-`PaymentDriverInterface` implementation, and `PaymentDriverManager`
-resolves it. A method is offerable only when it has a registered driver
-(and the driver's credentials are configured) —
-`GET /payment/user/methods` returns exactly that set and is the
-storefront's source of truth for the checkout picker.
+Payment methods are a driver registry: `PaymentMethodEnum` supplies the
+case, `config('payment.drivers')` maps it to a `PaymentDriverInterface`
+implementation, and `PaymentDriverManager` resolves it. A method is
+offerable only when it has a registered driver, the driver's credentials
+are configured, **and** an admin has activated it in the payment-methods
+screen (`payment_methods.is_active`, with `sort_order` controlling the
+checkout picker's order) — `GET /payment/user/methods` returns exactly
+that set and is the storefront's source of truth. All hosted drivers
+follow the same shape: redirect the customer to a gateway-hosted page,
+settle exclusively through the signature-verified webhook, and bridge
+the gateway's transaction reference to the stored `transaction_id`.
 
-| Method   | Driver                | Flow                                                                    |
-| -------- | --------------------- | ----------------------------------------------------------------------- |
-| `manual` | `ManualPaymentDriver` | No hosted checkout; an admin settles it (`PATCH /admin/payments/{id}`). |
-| `stripe` | `StripePaymentDriver` | Hosted Checkout redirect; settled by signed webhook.                    |
+| Method        | Driver                     | Flow                                                                     |
+| ------------- | -------------------------- | ------------------------------------------------------------------------ |
+| `manual`      | `ManualPaymentDriver`      | No hosted checkout; an admin settles it (`PATCH /admin/payments/{id}`).  |
+| `stripe`      | `StripePaymentDriver`      | Hosted Checkout redirect; settled by signed webhook.                     |
+| `paypal`      | `PaypalPaymentDriver`      | Orders v2 approve-redirect; capture server-side on webhook.              |
+| `adyen`       | `AdyenPaymentDriver`       | Pay by Link redirect; HMAC-verified standard webhook (auto-capture).     |
+| `mercadopago` | `MercadopagoPaymentDriver` | Checkout Pro preference redirect (LatAm); payment re-fetched on webhook. |
+| `nowpayments` | `NowpaymentsPaymentDriver` | Crypto invoice; settles only when funds land (`finished` IPN status).    |
+| `checkoutcom` | `CheckoutcomPaymentDriver` | Payment Links redirect; settles on `payment_captured` (auto-capture).    |
+| `razorpay`    | `RazorpayPaymentDriver`    | Payment Links redirect (India); settles on `payment_link.paid`.          |
 
 ## Sequence
 
@@ -83,6 +93,29 @@ The Stripe driver is configured in the backend's `.env`:
 | `STRIPE_SUCCESS_URL`    | Storefront return page; `{order_code}` is templated in               |
 | `STRIPE_CANCEL_URL`     | Cancelled-checkout return page                                       |
 
+## The other gateway drivers
+
+Every additional gateway follows the same contract — credentials in the
+backend's `.env`, webhook at `POST /api/v1/payment/webhook/{driver}`,
+return/pending/cancel URLs templating `{order_code}` onto the
+storefront's `/payment/return` page. Non-terminal webhook events are
+rejected so the payment stays PENDING until a terminal one lands.
+
+| Driver        | Credentials                                                                     | Webhook verification                           | Settles on                                                                            |
+| ------------- | ------------------------------------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `paypal`      | `PAYPAL_MODE`, `PAYPAL_CLIENT_ID`/`_SECRET`, `PAYPAL_WEBHOOK_ID`                | verify-webhook-signature API call              | `CHECKOUT.ORDER.APPROVED` triggers a server-side capture; `PAYMENT.CAPTURE.COMPLETED` |
+| `adyen`       | `ADYEN_ENV`, `ADYEN_API_KEY`, `ADYEN_MERCHANT_ACCOUNT`, `ADYEN_HMAC_KEY`        | Standard-webhook HMAC                          | `AUTHORISATION` with success — auto-capture accounts only                             |
+| `mercadopago` | `MERCADOPAGO_ACCESS_TOKEN`, `MERCADOPAGO_WEBHOOK_SECRET`, `MERCADOPAGO_SANDBOX` | `x-signature` HMAC; payment re-fetched via API | `approved` only — `pending`/`in_process` (Pix, Boleto) stay PENDING                   |
+| `nowpayments` | `NOWPAYMENTS_ENV`, `NOWPAYMENTS_API_KEY`, `NOWPAYMENTS_IPN_SECRET`              | `x-nowpayments-sig` HMAC                       | `finished` only — crypto waiting/confirming states stay PENDING                       |
+| `checkoutcom` | `CHECKOUTCOM_ENV`, `CHECKOUTCOM_SECRET_KEY`, `CHECKOUTCOM_WEBHOOK_SECRET`       | `cko-signature` HMAC                           | `payment_captured` — `payment_approved` (authorised, not captured) is rejected        |
+| `razorpay`    | `RAZORPAY_KEY_ID`/`_KEY_SECRET`, `RAZORPAY_WEBHOOK_SECRET`                      | `x-razorpay-signature` HMAC                    | `payment_link.paid`; `payment_link.cancelled` fails                                   |
+
+Each driver also takes its return/cancel URL variables
+(`PAYPAL_RETURN_URL`/`_CANCEL_URL`, `ADYEN_RETURN_URL`,
+`MERCADOPAGO_SUCCESS_URL`/`_PENDING_URL`/`_FAILURE_URL`,
+`NOWPAYMENTS_SUCCESS_URL`/`_CANCEL_URL`, `CHECKOUTCOM_RETURN_URL`,
+`RAZORPAY_RETURN_URL`) — all `{order_code}`-templated like Stripe's.
+
 ## Adding a payment driver
 
 1. Add the case to `PaymentMethodEnum` (values are public API).
@@ -100,5 +133,6 @@ The Stripe driver is configured in the backend's `.env`:
    `messages/{en,fa}/checkout/checkout.json`.
 6. Cover the driver with unit tests (signature + event mapping).
 
-Planned drivers follow the same recipe: **PayPal** (Orders v2 REST) and
-**Adyen** (hosted Payment Links).
+Every gateway added this way shows up in the admin's payment-methods
+screen once configured, disabled by default — flip it active there to
+offer it at checkout.

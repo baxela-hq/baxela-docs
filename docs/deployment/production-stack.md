@@ -14,6 +14,7 @@ with dedicated containers for each concern:
 | `migrate`       | —      | One-shot `php artisan migrate --force`; fpm/queue/scheduler wait for it |
 | `queue`         | —      | `php artisan queue:work`                                                |
 | `scheduler`     | —      | `php artisan schedule:work`                                             |
+| `reverb`        | —      | Laravel Reverb websocket server; `backend-nginx` proxies `/app/` to it  |
 | `admin`         | `8081` | Built admin SPA served as static files                                  |
 | `storefront`    | `8082` | Next.js standalone server                                               |
 | `mysql`         | —      | MySQL 8 with healthcheck; **no published port** by default              |
@@ -39,7 +40,12 @@ stack — always pass `--env-file` and `-f` in production.
   images are reusable as-is in Kubernetes later.
 - **Frontend env vars are bake-time.** `NEXT_PUBLIC_API_BASE_URL` and the
   `VITE_*` variables are build arguments; `SERVER_API_BASE_URL` for the
-  storefront is provided at runtime.
+  storefront is provided at runtime. Realtime-notification client config
+  (`REVERB_APP_KEY`/`HOST`/`PORT`/`SCHEME`) is baked into both frontends
+  the same way.
+- **Websockets ride the API host.** `backend-nginx` proxies the Reverb
+  websocket endpoint (`/app/`) under the backend's TLS, so clients need
+  no extra port or domain.
 - **Database access.** Reach MySQL via the compose network, or publish a
   port explicitly if you need host access.
 - Build assets (Dockerfiles, nginx configs, php.ini) live in

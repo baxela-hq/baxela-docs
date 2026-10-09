@@ -1,10 +1,14 @@
 ---
-sidebar_position: 9
+sidebar_position: 10
 ---
 
 # Menu
 
 Responsible for managing navigation menus and their nested links.
+
+The module's seeder rebuilds the menus per location (header/footer) from
+its language files — including the header **Blog** link (`/blog`) that
+ships with the blog feature.
 
 ## Tables
 

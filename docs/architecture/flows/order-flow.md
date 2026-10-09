@@ -20,8 +20,11 @@ flowchart TD
 
     D -->|Available| E[Quote shipping & snapshot currency]
     E --> F["One transaction:
-        create order (pending/unpaid, price+currency+shipping snapshots, order_code)
-        decrement stock per item
+        re-price lines to current promoted prices,
+        re-evaluate the applied coupon (if any),
+        create order (pending/unpaid, price+currency+shipping+discount snapshots, order_code),
+        redeem the coupon transactionally,
+        decrement stock per item,
         destroy the cart"]
 
     F --> G[Dispatch OrderCreatedEvent]

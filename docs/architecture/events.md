@@ -52,10 +52,11 @@ event store).
 
 ### Content
 
-| Event                  | When                      |
-| ---------------------- | ------------------------- |
-| `PagePublishedEvent`   | A CMS page is published   |
-| `PageUnpublishedEvent` | A CMS page is unpublished |
+| Event                     | When                          |
+| ------------------------- | ----------------------------- |
+| `PagePublishedEvent`      | A CMS page is published       |
+| `PageUnpublishedEvent`    | A CMS page is unpublished     |
+| `PostCommentCreatedEvent` | A customer comments on a post |
 
 ### Inventory
 
@@ -112,6 +113,15 @@ event store).
 | `ShipmentCreatedEvent`   | A shipment is created for an order                                    |
 | `ShipmentShippedEvent`   | Shipment transitions to shipped (the order is marked shipped too)     |
 | `ShipmentDeliveredEvent` | Shipment transitions to delivered (the order is marked completed too) |
+
+### Support
+
+| Event                       | When                            |
+| --------------------------- | ------------------------------- |
+| `TicketCreatedEvent`        | A support ticket is created     |
+| `TicketMessageCreatedEvent` | A customer or admin reply lands |
+| `TicketStatusUpdatedEvent`  | A ticket's status changes       |
+| `TicketDeletedEvent`        | A ticket is deleted             |
 
 ### User
 

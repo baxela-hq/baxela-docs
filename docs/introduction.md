@@ -16,8 +16,8 @@ and a Next.js storefront — all developed together in a single monorepo.
   a distributed microservice sprawl.
 - **Event-driven** — modules communicate through domain events and listener
   reactions, keeping them loosely coupled.
-- **Headless / API-first** — the storefront and admin are plain clients of
-  the versioned REST API.
+- **Headless / API-first** — the storefront, admin and mobile app are
+  plain clients of the versioned REST API.
 - **Shared-hosting friendly** — a conventional PHP stack (no exotic runtime
   requirements) that also runs great in Docker.
 - **Fully documented** — API (OpenAPI via Scramble), flows, and module
@@ -25,13 +25,14 @@ and a Next.js storefront — all developed together in a single monorepo.
 - **SOLID & Open/Closed compliant** — extend through events, listeners,
   module overrides, and custom modules rather than core edits.
 
-## The three apps
+## The apps
 
-| App          | Stack                                                | Purpose                                                              |
-| ------------ | ---------------------------------------------------- | -------------------------------------------------------------------- |
-| `backend`    | Laravel (PHP ≥ 8.3), MySQL, Redis                    | REST API, modular monolith                                           |
-| `admin`      | React 19, Vite 7, TypeScript, Tailwind v4, shadcn/ui | Back-office panel (catalog, content, media, orders, users, settings) |
-| `storefront` | Next.js (App Router), React 19, TypeScript           | Customer-facing shop with built-in English + Farsi (RTL) locales     |
+| App          | Stack                                                | Purpose                                                                                         |
+| ------------ | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `backend`    | Laravel (PHP ≥ 8.3), MySQL, Redis                    | REST API, modular monolith                                                                      |
+| `admin`      | React 19, Vite 7, TypeScript, Tailwind v4, shadcn/ui | Back-office panel (catalog, content, discounts, support, media, orders, users, settings)        |
+| `storefront` | Next.js (App Router), React 19, TypeScript           | Customer-facing shop with built-in English + Farsi (RTL) locales                                |
+| `mobile`     | Expo (React Native), expo-router, NativeWind         | Mobile storefront — separate `baxela-mobile` repository (see [Mobile](/mobile/getting-started)) |
 
 ## Where to go next
 

@@ -1,0 +1,8 @@
+{
+  "label": "Mobile App",
+  "position": 7,
+  "link": {
+    "type": "generated-index",
+    "description": "The Baxela mobile storefront — an Expo (React Native) app consuming the same Laravel API."
+  }
+}

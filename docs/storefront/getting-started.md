@@ -7,17 +7,28 @@ sidebar_position: 1
 The storefront is the customer-facing app of the platform — a Next.js App
 Router application that consumes the Baxela Laravel API for catalog
 browsing, product pages (with a specifications tab from the catalog
-attribute system), cart, checkout, payments, and customer accounts.
+attribute system), cart, checkout, payments, the blog, support tickets,
+and customer accounts.
 
 Multilingual by default: English and Farsi (RTL) via `next-intl`, with
-locale routing under `app/[locale]/`.
+locale routing under `app/[locale]/`. Theming runs on two axes: the
+brand palette comes from the admin's `storefront_theme` setting
+(resolved server-side), and shoppers toggle light/dark/system through a
+flash-free, cookie-driven mode switch — the whole UI is built on a
+design-token layer.
 
 Checkout offers the payment methods returned by
-`GET /payment/user/methods` — hosted drivers like Stripe redirect to the
-gateway and land back on the `/payment/return` page, which polls the
-order's payment status. Signed-in customers also get notifications: a
-header bell with unread badge and an inbox under
-`/profile/notifications`.
+`GET /payment/user/methods` — hosted drivers like Stripe, PayPal, Adyen,
+Mercado Pago, Checkout.com and Razorpay redirect to the gateway and land
+back on the `/payment/return` page, which polls the order's payment
+status (crypto invoices via NowPayments settle when the funds land).
+Carts are promotion-aware — sale prices and badges render from the
+API-injected `promotion` objects — and a coupon code can be applied at
+checkout. Signed-in customers also get notifications: a realtime header
+bell (Laravel Reverb) with unread badge, an inbox under
+`/profile/notifications`, optional OS-level browser notifications, and
+device sessions with real sign-out. Real 404 pages render for unknown
+routes.
 
 ## Tech stack
 

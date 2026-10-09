@@ -31,6 +31,7 @@ migrations all run without manual steps.
 | Backend API            | `http://localhost:8085`                                          |
 | Admin panel            | `http://localhost:5173`                                          |
 | Storefront             | `http://localhost:3000`                                          |
+| Reverb (websockets)    | `http://localhost:8080`                                          |
 | MySQL                  | `localhost:3308` (user `baxela`, password `password` by default) |
 | Redis                  | `localhost:6378`                                                 |
 | Mailpit (mail profile) | `http://localhost:8025`                                          |

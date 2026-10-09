@@ -16,6 +16,7 @@ and which profiles start.
 | --------------------- | ---------------- | ---------------------------------------------------------- |
 | `COMPOSE_PROFILES`    | `frontend`       | Compose profiles to enable; empty for a backend-only stack |
 | `BACKEND_APP_PORT`    | `8085`           | Host port for the backend (nginx)                          |
+| `REVERB_DEV_PORT`     | `8080`           | Host port for the Reverb websocket server                  |
 | `ADMIN_DEV_PORT`      | `5173`           | Host port for the admin dev server                         |
 | `STOREFRONT_DEV_PORT` | `3000`           | Host port for the storefront dev server                    |
 | `BACKEND_MYSQL_PORT`  | `3308`           | Host port for MySQL                                        |
@@ -49,16 +50,21 @@ on the host applies to the running stack.
 
 Notable backend-specific variables:
 
-| Variable                      | Description                                                                       |
-| ----------------------------- | --------------------------------------------------------------------------------- |
-| `STRIPE_SECRET`               | Stripe API secret key; the `stripe` payment method is only offered when it is set |
-| `STRIPE_WEBHOOK_SECRET`       | Signing secret for `POST /api/v1/payment/webhook/stripe`                          |
-| `STRIPE_SUCCESS_URL`          | Storefront return page after hosted checkout (`{order_code}` templated)           |
-| `STRIPE_CANCEL_URL`           | Storefront return page for cancelled checkouts                                    |
-| `ADMIN_NOTIFICATION_EMAILS`   | Comma-separated admin recipients for email notifications (default: mail sender)   |
-| `ADMIN_NOTIFICATION_USER_IDS` | Restrict database admin notifications to fixed user ids (default: all staff)      |
+| Variable                                     | Description                                                                                      |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `CORS_ALLOWED_ORIGINS`                       | Comma-separated browser origins allowed to call the API (storefront, admin)                      |
+| `STRIPE_SECRET`                              | Stripe API secret key; the `stripe` payment method is only offered when it is set                |
+| `STRIPE_WEBHOOK_SECRET`                      | Signing secret for `POST /api/v1/payment/webhook/stripe`                                         |
+| `STRIPE_SUCCESS_URL`                         | Storefront return page after hosted checkout (`{order_code}` templated)                          |
+| `STRIPE_CANCEL_URL`                          | Storefront return page for cancelled checkouts                                                   |
+| `ADMIN_NOTIFICATION_EMAILS`                  | Comma-separated admin recipients for email notifications (default: mail sender)                  |
+| `ADMIN_NOTIFICATION_USER_IDS`                | Restrict database admin notifications to fixed user ids (default: all staff)                     |
+| `REVERB_APP_ID`/`_KEY`/`_SECRET`             | Laravel Reverb credentials for realtime notification broadcasting                                |
+| `VAPID_PUBLIC_KEY`/`_PRIVATE_KEY`/`_SUBJECT` | Web-push signing keys (`php artisan notification:generate-vapid`); the channel no-ops when unset |
 
-See [Payment flow](/architecture/flows/payment-flow) for how the Stripe
-variables are used. The shared-hosting deploy tool keeps its connection
+Every additional payment driver (PayPal, Adyen, Mercado Pago, NowPayments,
+Checkout.com, Razorpay) brings its own credential block —
+see [Payment flow](/architecture/flows/payment-flow) for the full per-driver
+variable tables. The shared-hosting deploy tool keeps its connection
 settings in `.env.sharedhosting` at the repo root (see
 [Shared hosting](/deployment/shared-hosting)).
