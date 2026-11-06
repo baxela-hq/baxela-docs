@@ -43,6 +43,8 @@ and a Next.js storefront — all developed together in a single monorepo.
 - **[Dependency graph](https://htmlpreview.github.io/?https://github.com/baxela-hq/baxela/blob/main/docs/module-dependency-graph.html)** —
   an interactive map of how the modules actually reference each other,
   regenerated after each release.
+- **[Database ERD](/backend/erd)** — per-module schema diagrams: tables,
+  keys, and relations, generated from the live database.
 - **[API](/api/introduction)** — authentication, conventions, and the
   OpenAPI/Bruno tooling.
 - **[Deployment](/deployment/develop-stack)** — develop and production

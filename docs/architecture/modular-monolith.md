@@ -67,6 +67,19 @@ a snapshot regenerated after each version release with
 `python3 scripts/generate-module-graph.py`, so it stays in sync with the
 module list on this page.
 
+## Database ERD
+
+Every module's database schema is diagrammed in the
+[Database ERD](/backend/erd) reference: one Mermaid diagram per module with
+tables, columns, keys, and indexes. Solid lines are enforced database foreign
+keys; dashed lines are Eloquent relations the database does not constrain
+(mostly cross-module references); loose `*_id` columns that have neither are
+listed per page.
+
+The pages are generated from the live schema with `php artisan erd:generate`
+in the platform repository and copied here, so they describe the database
+exactly as deployed.
+
 ## Extending the platform
 
 Baxela is built to be extended via:
