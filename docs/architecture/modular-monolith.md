@@ -77,7 +77,7 @@ keys; dashed lines are Eloquent relations the database does not constrain
 listed per page.
 
 The pages are generated from the live schema with `php artisan erd:generate`
-in the platform repository and copied here, so they describe the database
+in the platform repository and pulled into this site with `pnpm sync:erd`, so they describe the database
 exactly as deployed.
 
 ## Extending the platform

@@ -15,6 +15,7 @@
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc",
     "lint:md": "markdownlint-cli2 \"docs/**/*.md\"",
+    "sync:erd": "node scripts/sync-erd.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
