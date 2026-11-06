@@ -51,6 +51,22 @@ reference: tables, emitted/listened events, and dependencies.
   name (`catalog_products`, `order_orders`, `shipping_rates`, …), keeping
   the single database physically partitioned by module.
 
+## Interactive dependency graph
+
+The real coupling between modules is mapped in an auto-generated,
+interactive graph that ships in the main repository:
+[`docs/module-dependency-graph.html`](https://github.com/baxela-hq/baxela/blob/main/docs/module-dependency-graph.html).
+View it rendered on
+[htmlpreview](https://htmlpreview.github.io/?https://github.com/baxela-hq/baxela/blob/main/docs/module-dependency-graph.html).
+
+It aggregates imports, calls, references, and inheritance across the backend
+modules, the admin feature areas, and the storefront parts. Hover any module
+for its coupling stats, drag to rearrange, filter by app, and raise the
+minimum-reference threshold to surface only the strongest links. The graph is
+a snapshot regenerated after each version release with
+`python3 scripts/generate-module-graph.py`, so it stays in sync with the
+module list on this page.
+
 ## Extending the platform
 
 Baxela is built to be extended via:

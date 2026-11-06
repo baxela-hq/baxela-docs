@@ -40,6 +40,9 @@ and a Next.js storefront — all developed together in a single monorepo.
   running with one `docker compose up -d`.
 - **[Architecture](/architecture/modular-monolith)** — how the modular
   monolith and its modules fit together.
+- **[Dependency graph](https://htmlpreview.github.io/?https://github.com/baxela-hq/baxela/blob/main/docs/module-dependency-graph.html)** —
+  an interactive map of how the modules actually reference each other,
+  regenerated after each release.
 - **[API](/api/introduction)** — authentication, conventions, and the
   OpenAPI/Bruno tooling.
 - **[Deployment](/deployment/develop-stack)** — develop and production
